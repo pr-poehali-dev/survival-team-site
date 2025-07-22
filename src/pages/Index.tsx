@@ -50,6 +50,7 @@ const Index = () => {
       verified: true,
       category: "Фарм",
       description: "Нахожу легендарные предметы в опасных зонах. Гарантия результата.",
+      escrowAvailable: true,
     },
     {
       id: 2,
@@ -60,16 +61,18 @@ const Index = () => {
       verified: true,
       category: "Оборона",
       description: "Круглосуточная охрана ваших построек от рейдеров.",
+      escrowAvailable: true,
     },
     {
       id: 3,
-      title: "Прокачка персонажа",
-      provider: "LevelMaster",
-      rating: 4.6,
-      price: "300₽/уровень",
-      verified: false,
-      category: "Развитие",
-      description: "Быстрая и безопасная прокачка навыков выживания.",
+      title: "Доверенное лицо",
+      provider: "TrustAgent",
+      rating: 4.9,
+      price: "3% от сделки",
+      verified: true,
+      category: "Гарант",
+      description: "Безопасные сделки между игроками. Проверенный посредник с опытом 500+ сделок.",
+      escrowAvailable: false,
     },
   ];
 
@@ -240,6 +243,14 @@ const Index = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-sm text-muted-foreground mb-4">{service.description}</p>
+                    
+                    {service.escrowAvailable && (
+                      <div className="flex items-center gap-2 mb-3 text-xs text-accent bg-accent/10 px-2 py-1 rounded">
+                        <Icon name="Shield" size={12} />
+                        Доступна гарантия через доверенное лицо
+                      </div>
+                    )}
+                    
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-4">
                         <div className="flex items-center">
@@ -248,7 +259,7 @@ const Index = () => {
                         </div>
                         <div className="text-lg font-semibold text-primary">{service.price}</div>
                       </div>
-                      <Button size="sm">Заказать</Button>
+                      <Button size="sm">{service.category === "Гарант" ? "Выбрать" : "Заказать"}</Button>
                     </div>
                   </CardContent>
                 </Card>
