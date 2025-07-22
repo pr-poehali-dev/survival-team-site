@@ -74,6 +74,42 @@ const Index = () => {
       description: "Безопасные сделки между игроками. Проверенный посредник с опытом 500+ сделок.",
       escrowAvailable: false,
     },
+    {
+      id: 4,
+      title: "Турнир PvP 'Битва за Север'",
+      provider: "EventMaster",
+      rating: 4.7,
+      price: "Вход: 1000₽",
+      verified: true,
+      category: "Турнир",
+      description: "Командный турнир 5v5. Призовой фонд 50,000₽. Регистрация до 25 июля.",
+      escrowAvailable: true,
+      isAd: true,
+    },
+    {
+      id: 5,
+      title: "Продам аккаунт 87 LVL",
+      provider: "AccountSeller",
+      rating: 4.5,
+      price: "8,500₽",
+      verified: false,
+      category: "Аккаунт",
+      description: "Полная прокачка, редкие скины, 15+ легендарных предметов. Много ресурсов.",
+      escrowAvailable: true,
+      isAd: true,
+    },
+    {
+      id: 6,
+      title: "Аккаунт с базой в топ зоне",
+      provider: "BaseOwner",
+      rating: 4.6,
+      price: "12,000₽",
+      verified: true,
+      category: "Аккаунт",
+      description: "Аккаунт с готовой укрепленной базой в центре карты. Вся инфраструктура.",
+      escrowAvailable: true,
+      isAd: true,
+    },
   ];
 
   const topPlayers = [
@@ -226,7 +262,12 @@ const Index = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {services.map((service) => (
-                <Card key={service.id} className="hover:shadow-lg transition-all duration-300 hover:scale-105 bg-card/50 backdrop-blur border-primary/20">
+                <Card key={service.id} className={`hover:shadow-lg transition-all duration-300 hover:scale-105 bg-card/50 backdrop-blur ${service.isAd ? 'border-primary/40 bg-gradient-to-br from-primary/5 to-accent/5' : 'border-primary/20'} relative`}>
+                  {service.isAd && (
+                    <div className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs px-2 py-1 rounded-full">
+                      РЕКЛАМА
+                    </div>
+                  )}
                   <CardHeader className="pb-3">
                     <div className="flex items-start justify-between">
                       <div className="flex-1">
@@ -238,7 +279,7 @@ const Index = () => {
                           )}
                         </CardDescription>
                       </div>
-                      <Badge variant="outline">{service.category}</Badge>
+                      <Badge variant={service.isAd ? "default" : "outline"}>{service.category}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent>
@@ -259,7 +300,11 @@ const Index = () => {
                         </div>
                         <div className="text-lg font-semibold text-primary">{service.price}</div>
                       </div>
-                      <Button size="sm">{service.category === "Гарант" ? "Выбрать" : "Заказать"}</Button>
+                      <Button size="sm">
+                        {service.category === "Гарант" ? "Выбрать" : 
+                         service.category === "Турнир" ? "Регистрация" :
+                         service.category === "Аккаунт" ? "Купить" : "Заказать"}
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
