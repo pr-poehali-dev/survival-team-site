@@ -118,6 +118,87 @@ const Index = () => {
     { name: "BaseMaster", rating: 2689, verified: false, specialty: "Строитель" },
   ];
 
+  const soloPlayers = [
+    {
+      id: 1,
+      name: "ShadowWolf",
+      age: 23,
+      experience: "3 года",
+      pvpRating: 8,
+      verified: true,
+      specialty: "Ассассин",
+      avatar: "🐺",
+      description: "Опытный одиночка. Специализируюсь на скрытности и точных ударах.",
+      lookingFor: "Команду для рейдов",
+      online: true,
+    },
+    {
+      id: 2,
+      name: "LoneRanger",
+      age: 28,
+      experience: "5 лет",
+      pvpRating: 9,
+      verified: true,
+      specialty: "Снайпер",
+      avatar: "🎯",
+      description: "Дальний бой - моя стихия. Контролирую территории с расстояния.",
+      lookingFor: "Постоянную команду",
+      online: false,
+    },
+    {
+      id: 3,
+      name: "Survivalist",
+      age: 19,
+      experience: "1.5 года",
+      pvpRating: 6,
+      verified: false,
+      specialty: "Выживание",
+      avatar: "🌿",
+      description: "Молодой, но перспективный. Хорошо знаю карту и ресурсы.",
+      lookingFor: "Наставника и команду",
+      online: true,
+    },
+    {
+      id: 4,
+      name: "TechMaster",
+      age: 31,
+      experience: "4 года",
+      pvpRating: 7,
+      verified: true,
+      specialty: "Инженер",
+      avatar: "⚙️",
+      description: "Специалист по технике и ловушкам. Умею чинить и модифицировать.",
+      lookingFor: "Команду строителей",
+      online: true,
+    },
+    {
+      id: 5,
+      name: "StealthGirl",
+      age: 21,
+      experience: "2 года",
+      pvpRating: 8,
+      verified: true,
+      specialty: "Разведка",
+      avatar: "👤",
+      description: "Женский взгляд на выживание. Отличная в разведке и дипломатии.",
+      lookingFor: "Дружную команду",
+      online: false,
+    },
+    {
+      id: 6,
+      name: "BerserkerMax",
+      age: 26,
+      experience: "6 лет",
+      pvpRating: 10,
+      verified: true,
+      specialty: "Штурмовик",
+      avatar: "⚔️",
+      description: "Ветеран PvP. Люблю прямые столкновения и штурм баз.",
+      lookingFor: "Боевую команду",
+      online: true,
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted">
       {/* Header */}
@@ -315,43 +396,96 @@ const Index = () => {
           {/* Players Tab */}
           <TabsContent value="players" id="players">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-3xl font-bold">Рейтинг игроков</h2>
+              <h2 className="text-3xl font-bold">Соло игроки ищут команду</h2>
               <Button variant="outline">
-                <Icon name="Trophy" size={16} className="mr-2" />
-                Весь рейтинг
+                <Icon name="UserPlus" size={16} className="mr-2" />
+                Создать анкету
               </Button>
             </div>
             
-            <div className="grid gap-4">
-              {topPlayers.map((player, index) => (
-                <Card key={index} className="hover:shadow-lg transition-all duration-300 bg-card/50 backdrop-blur border-primary/20">
-                  <CardContent className="flex items-center justify-between p-6">
-                    <div className="flex items-center space-x-4">
-                      <div className="text-2xl font-bold text-primary">#{index + 1}</div>
-                      <Avatar>
-                        <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${player.name}`} />
-                        <AvatarFallback>{player.name.slice(0, 2)}</AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-semibold">{player.name}</h3>
-                          {player.verified && (
-                            <Icon name="BadgeCheck" size={16} className="text-accent" />
-                          )}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {soloPlayers.map((player) => (
+                <Card key={player.id} className="hover:shadow-lg transition-all duration-300 hover:scale-105 bg-card/50 backdrop-blur border-primary/20">
+                  <CardHeader className="pb-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="text-2xl">{player.avatar}</div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <CardTitle className="text-lg">{player.name}</CardTitle>
+                            {player.verified && (
+                              <Icon name="BadgeCheck" size={14} className="text-accent" />
+                            )}
+                          </div>
+                          <CardDescription className="flex items-center gap-2">
+                            {player.specialty}
+                            {player.online ? (
+                              <Badge variant="default" className="text-xs bg-green-500">Онлайн</Badge>
+                            ) : (
+                              <Badge variant="secondary" className="text-xs">Оффлайн</Badge>
+                            )}
+                          </CardDescription>
                         </div>
-                        <p className="text-sm text-muted-foreground">{player.specialty}</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4">
-                      <div className="text-right">
-                        <div className="flex items-center">
-                          <Icon name="Zap" size={14} className="mr-1 text-primary" />
-                          <span className="font-semibold">{player.rating}</span>
+                  </CardHeader>
+                  
+                  <CardContent className="space-y-4">
+                    <p className="text-sm text-muted-foreground">{player.description}</p>
+                    
+                    <div className="grid grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <Icon name="Calendar" size={12} />
+                          Возраст
                         </div>
-                        <p className="text-xs text-muted-foreground">рейтинг</p>
+                        <div className="font-semibold">{player.age} лет</div>
                       </div>
-                      <Button size="sm" variant="secondary">
-                        Профиль
+                      <div>
+                        <div className="flex items-center gap-1 text-muted-foreground">
+                          <Icon name="Clock" size={12} />
+                          Опыт
+                        </div>
+                        <div className="font-semibold">{player.experience}</div>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Icon name="Sword" size={14} className="text-primary" />
+                        <span className="text-sm text-muted-foreground">PvP навык:</span>
+                        <div className="flex items-center gap-1">
+                          <span className="font-bold text-primary">{player.pvpRating}</span>
+                          <span className="text-xs text-muted-foreground">/10</span>
+                        </div>
+                      </div>
+                      <div className="flex gap-1">
+                        {Array.from({ length: 10 }, (_, i) => (
+                          <div
+                            key={i}
+                            className={`w-2 h-2 rounded-full ${
+                              i < player.pvpRating ? 'bg-primary' : 'bg-muted'
+                            }`}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                    
+                    <div className="pt-2 border-t">
+                      <div className="flex items-center gap-1 text-muted-foreground mb-1">
+                        <Icon name="Search" size={12} />
+                        <span className="text-xs">Ищет:</span>
+                      </div>
+                      <p className="text-sm font-medium">{player.lookingFor}</p>
+                    </div>
+                    
+                    <div className="flex gap-2 pt-2">
+                      <Button size="sm" className="flex-1">
+                        <Icon name="MessageCircle" size={14} className="mr-2" />
+                        Написать
+                      </Button>
+                      <Button size="sm" variant="outline">
+                        <Icon name="UserPlus" size={14} />
                       </Button>
                     </div>
                   </CardContent>
